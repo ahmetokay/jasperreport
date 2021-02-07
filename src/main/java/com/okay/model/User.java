@@ -1,6 +1,7 @@
 package com.okay.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -10,7 +11,9 @@ public class User implements Serializable {
 
     private String email;
 
-    private String address;
+    private EnumUserType type;
+
+    private List<Address> addressList;
 
     public String getName() {
         return name;
@@ -36,11 +39,19 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public EnumUserType getType() {
+        return type;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setType(EnumUserType type) {
+        this.type = type;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 }

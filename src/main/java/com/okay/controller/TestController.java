@@ -1,5 +1,7 @@
 package com.okay.controller;
 
+import com.okay.model.Address;
+import com.okay.model.EnumUserType;
 import com.okay.model.User;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -28,16 +30,15 @@ public class TestController {
 
     @ResponseBody
     @GetMapping(value = "/test")
-    public void test(HttpServletResponse response, @RequestParam(value = "type") String type, @RequestParam(value = "count") int count) {
+    public void test(HttpServletResponse response, @RequestParam(value = "count") int count) {
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/jasper/" + type + ".jrxml");
+            InputStream inputStream = getClass().getResourceAsStream("/jasper/table.jrxml");
 
             List<User> userList = createUserList(count);
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(userList);
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("dataSource", dataSource);
-            parameters.put("tableName", type.toUpperCase(Locale.ROOT));
 
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
@@ -88,7 +89,16 @@ public class TestController {
         user.setName("Ahmet" + i);
         user.setSurname("Okay" + ThreadLocalRandom.current().nextInt(1, 11));
         user.setEmail("ahmet@ahmet.com");
-        user.setAddress("Türkiye" + ThreadLocalRandom.current().nextInt(1, 11));
+        user.setType(i % 2 == 0 ? EnumUserType.USER : EnumUserType.ADMIN);
+        user.setAddressList(List.of(createAddress(), createAddress()));
         return user;
+    }
+
+    private Address createAddress() {
+        Address address = new Address();
+        address.setAddress("Ankara");
+        address.setCity("Ankara" + ThreadLocalRandom.current().nextInt(1, 11));
+        address.setCountry("Turkey");
+        return address;
     }
 }
