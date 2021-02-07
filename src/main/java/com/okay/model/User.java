@@ -1,6 +1,7 @@
 package com.okay.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class User implements Serializable {
@@ -12,6 +13,8 @@ public class User implements Serializable {
     private String email;
 
     private EnumUserType type;
+
+    private Date createDate;
 
     private List<Address> addressList;
 
@@ -45,6 +48,14 @@ public class User implements Serializable {
 
     public void setType(EnumUserType type) {
         this.type = type;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public List<Address> getAddressList() {

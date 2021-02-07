@@ -90,6 +90,7 @@ public class TestController {
         user.setSurname("Okay" + ThreadLocalRandom.current().nextInt(1, 11));
         user.setEmail("ahmet@ahmet.com");
         user.setType(i % 2 == 0 ? EnumUserType.USER : EnumUserType.ADMIN);
+        user.setCreateDate(new Date());
         user.setAddressList(List.of(createAddress(), createAddress()));
         return user;
     }
